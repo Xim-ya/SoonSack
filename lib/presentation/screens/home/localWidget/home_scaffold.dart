@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:soon_sak/app/index.dart';
 import 'package:soon_sak/presentation/index.dart';
 import 'package:soon_sak/utilities/index.dart';
@@ -26,6 +27,7 @@ class HomeScaffold extends StatelessWidget {
     required this.categoryContentCollectionList,
     required this.channelSlider,
     required this.stackedTopGradient,
+    required this.adCardView,
     required this.stackedAppBar,
     required this.topPositionedContentSliderList,
   }) : super(key: key);
@@ -36,6 +38,7 @@ class HomeScaffold extends StatelessWidget {
   final Widget topTenSlider;
   final Widget categoryContentCollectionList;
   final Widget stackedTopGradient;
+  final Widget adCardView;
   final Widget channelSlider;
   final List<Widget> topPositionedContentSliderList;
   final ScrollController scrollController;
@@ -83,6 +86,7 @@ class HomeScaffold extends StatelessWidget {
                         topPositionedContentSliderList[0],
                         AppSpace.size32,
                         channelSlider,
+                        adCardView,
                         AppSpace.size32,
                       ],
                     ),

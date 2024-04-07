@@ -1,4 +1,5 @@
 import 'package:soon_sak/domain/index.dart';
+import 'package:soon_sak/domain/model/ad/ad_model.dart';
 import 'package:soon_sak/domain/model/content/home/newly_added_content_info.m.dart';
 import 'package:soon_sak/utilities/index.dart';
 
@@ -22,4 +23,6 @@ abstract class StaticContentRepository {
   // 상단 노출 Collection 리스트
   Future<Result<TopPositionedCollection>> loadTopPositionedCollection();
 
+  // 광고 정보
+  Future<Result<AdModel>> loadAdInfo();
 }

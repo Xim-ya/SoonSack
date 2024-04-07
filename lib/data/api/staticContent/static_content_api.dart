@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:soon_sak/data/api/staticContent/response/ad_info_response.dart';
 import 'package:soon_sak/data/api/staticContent/response/content_key_response.dart';
 
 /** Created By Ximya - 2023.02.22
@@ -26,4 +27,7 @@ abstract class StaticContentApi {
 
   // Static Content 키 리스트
   Future<ContentKeyResponse> loadStaticContentKeys();
+
+  // 광고 정보
+  Future<AdInfoResponse> loadAdInfo();
 }

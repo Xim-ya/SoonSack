@@ -23,6 +23,7 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
       categoryContentCollectionList: const _PagedCategoryCollection(),
       topPositionedContentSliderList:
           _buildTopPositionedContentSliderList(context),
+      adCardView: const _AdCard(),
     );
   }
 
@@ -129,6 +130,28 @@ class HomeScreen extends BaseScreen<HomeViewModel> {
   @override
   HomeViewModel createViewModel(BuildContext context) =>
       locator<HomeViewModel>();
+}
+
+/// 광고 카드
+class _AdCard extends BaseView<HomeViewModel> {
+  const _AdCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    if (vmS(context, (vm) => vm.adInfo == null)) {
+      return const SizedBox.shrink();
+    }
+    return Padding(
+      padding: const EdgeInsets.only(top: 32),
+      child: GestureDetector(
+        onTap: vm(context).onAdCardTapped,
+        child: CachedNetworkImage(
+          imageUrl: vmS(context, (vm) => vm.adInfo!.imgUrl),
+          fit: BoxFit.fitWidth,
+        ),
+      ),
+    );
+  }
 }
 
 /// 최근 추가된 콘텐츠 슬라이더

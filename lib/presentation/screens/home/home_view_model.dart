@@ -1,17 +1,21 @@
 import 'dart:developer';
-import 'package:soon_sak/data/repository/channel/channel_repository.dart';
-import 'package:soon_sak/domain/model/content/home/newly_added_content_info.m.dart';
-import 'package:soon_sak/domain/useCase/content/home/load_cached_newly_added_contents.u.dart';
-import 'package:soon_sak/presentation/index.dart';
+
 import 'package:soon_sak/app/index.dart';
 import 'package:soon_sak/data/index.dart';
+import 'package:soon_sak/data/repository/channel/channel_repository.dart';
 import 'package:soon_sak/domain/index.dart';
+import 'package:soon_sak/domain/model/ad/ad_model.dart';
+import 'package:soon_sak/domain/model/content/home/newly_added_content_info.m.dart';
+import 'package:soon_sak/domain/useCase/ad/load_ad_info_use_case.dart';
+import 'package:soon_sak/domain/useCase/content/home/load_cached_newly_added_contents.u.dart';
+import 'package:soon_sak/presentation/index.dart';
 import 'package:soon_sak/utilities/index.dart';
 
 part 'home_view_model.part.dart';
 
 class HomeViewModel extends BaseViewModel {
   HomeViewModel({
+    required LoadAdInfoUseCase loadAdInfoUseCase,
     required LoadPagedCategoryCollectionUseCase
         loadPagedCategoryCollectionsUseCase,
     required LoadCachedTopPositionedContentsUseCase
@@ -27,9 +31,8 @@ class HomeViewModel extends BaseViewModel {
         _loadCachedTopTenContentsUseCase = loadCachedTopTenContentsUseCase,
         loadPagedCategoryCollectionUseCase =
             loadPagedCategoryCollectionsUseCase,
-        _channelRepository = channelRepository;
-
-  void testLocalStorageLogic() {}
+        _channelRepository = channelRepository,
+        _loadAdInfoUseCase = loadAdInfoUseCase;
 
   /* [Variables] */
 
@@ -39,6 +42,7 @@ class HomeViewModel extends BaseViewModel {
   NewlyAddedContentInfo? newlyAddedContentInfo; // 최근 추가된 콘텐츠
   TopTenContentsModel? topTenContents; // Top10 컨텐츠
   List<ChannelModel>? channelList; // 채널 리스트
+  AdModel? adInfo; // 광고
 
   /// State
   int bannerContentsSliderIndex = 0; // 상단 노출 컨텐츠 슬라이더의 현재 인덱스
@@ -65,6 +69,7 @@ class HomeViewModel extends BaseViewModel {
       _loadCachedTopPositionedContentsUseCase;
   final LoadCachedNewlyAddedContentsUseCase
       _loadCachedNewlyAddedContentsUseCase;
+  final LoadAdInfoUseCase _loadAdInfoUseCase;
 
   /* [Intent] */
   // Banner 슬라이더 swipe 되었을 때
@@ -137,6 +142,19 @@ class HomeViewModel extends BaseViewModel {
       isScrolledOnPosition = false;
       notifyListeners();
     }
+  }
+
+  // 광고 정보 호출
+  Future<void> _fetchAdInfo() async {
+    final response = await _loadAdInfoUseCase.call();
+    response.fold(
+      onSuccess: (ad) {
+        adInfo = ad;
+      },
+      onFailure: (e) {
+        log('HomeViewModel : $e');
+      },
+    );
   }
 
   // 채널 상세 스크린으로 이동
@@ -234,6 +252,14 @@ class HomeViewModel extends BaseViewModel {
     });
   }
 
+  // 광고 배너가 클릭 되었을 때
+  void onAdCardTapped() {
+    launchUrl(
+      Uri.parse('https://${adInfo!.impactUrl}'),
+      mode: LaunchMode.externalApplication,
+    );
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -266,6 +292,7 @@ class HomeViewModel extends BaseViewModel {
       _fetchTopPositionedCollection(),
       _fetchTopTenContents(),
       _fetchChannelList(),
+      _fetchAdInfo(),
     ]);
   }
 

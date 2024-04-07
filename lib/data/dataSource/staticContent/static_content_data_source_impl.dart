@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:soon_sak/data/api/staticContent/response/ad_info_response.dart';
 import 'package:soon_sak/data/api/staticContent/response/newly_added_content_response.dart';
 import 'package:soon_sak/data/index.dart';
 import 'package:soon_sak/domain/index.dart';
@@ -82,4 +84,7 @@ class StaticContentDataSourceImpl implements StaticContentDataSource {
 
     return NewlyAddedContentResponse.fromJson(json);
   }
+
+  @override
+  Future<AdInfoResponse> loadAdInfo() => _api.loadAdInfo();
 }

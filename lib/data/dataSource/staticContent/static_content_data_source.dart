@@ -1,6 +1,6 @@
+import 'package:soon_sak/data/api/staticContent/response/ad_info_response.dart';
 import 'package:soon_sak/data/api/staticContent/response/newly_added_content_response.dart';
 import 'package:soon_sak/data/index.dart';
-
 import 'package:soon_sak/utilities/index.dart';
 
 abstract class StaticContentDataSource {
@@ -22,4 +22,7 @@ abstract class StaticContentDataSource {
 
   // 상단 노출 Collection 리스트
   Future<TopPositionedCollectionResponse> loadTopPositionedCollection();
+
+  // 광고
+  Future<AdInfoResponse> loadAdInfo();
 }

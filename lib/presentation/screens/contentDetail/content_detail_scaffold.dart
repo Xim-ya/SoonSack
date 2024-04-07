@@ -151,7 +151,7 @@ class _ContentDetailScaffoldState extends State<ContentDetailScaffold>
                                         width: 2, color: AppColor.main),
                                     insets: EdgeInsets.symmetric(
                                       horizontal:
-                                          SizeConfig.to.screenWidth / 3.33,
+                                          SizeConfig.to.screenWidth / 6.23,
                                     ),
                                   ),
                                   labelColor: AppColor.white,

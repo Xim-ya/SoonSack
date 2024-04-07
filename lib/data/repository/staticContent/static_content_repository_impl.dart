@@ -1,5 +1,6 @@
 import 'package:soon_sak/data/index.dart';
 import 'package:soon_sak/domain/index.dart';
+import 'package:soon_sak/domain/model/ad/ad_model.dart';
 import 'package:soon_sak/domain/model/content/home/newly_added_content_info.m.dart';
 import 'package:soon_sak/utilities/index.dart';
 
@@ -64,6 +65,16 @@ class StaticContentRepositoryImpl extends StaticContentRepository {
     try {
       final response = await _dataSource.loadNewlyAddedContents();
       return Result.success(NewlyAddedContentInfo.fromResponse(response));
+    } on Exception catch (e) {
+      return Result.failure(e);
+    }
+  }
+
+  @override
+  Future<Result<AdModel>> loadAdInfo() async {
+    try {
+      final response = await _dataSource.loadAdInfo();
+      return Result.success(AdModel.fromResponse(response));
     } on Exception catch (e) {
       return Result.failure(e);
     }

@@ -1,6 +1,7 @@
 import 'package:soon_sak/app/index.dart';
 import 'package:soon_sak/data/index.dart';
 import 'package:soon_sak/domain/index.dart';
+import 'package:soon_sak/domain/useCase/ad/load_ad_info_use_case.dart';
 import 'package:soon_sak/domain/useCase/content/home/load_cached_newly_added_contents.u.dart';
 import 'package:soon_sak/domain/useCase/content/user/load_user_requested_contents_use_case.dart';
 import 'package:soon_sak/presentation/index.dart';
@@ -21,6 +22,7 @@ abstract class TabsBinding {
             locator<LoadCachedTopTenContentsUseCase>(),
         loadBannerContentUseCase: locator<LoadCachedBannerContentUseCase>(),
         channelRepository: locator<ChannelRepository>(),
+        loadAdInfoUseCase: locator<LoadAdInfoUseCase>(),
       ),
     );
 
