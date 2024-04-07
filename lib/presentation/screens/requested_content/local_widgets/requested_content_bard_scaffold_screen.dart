@@ -61,7 +61,7 @@ class _RequestedContentBoardScaffoldState
                       borderSide:
                           const BorderSide(width: 2, color: AppColor.main),
                       insets: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.to.screenWidth / 4.2,
+                        horizontal: SizeConfig.to.screenWidth / 9.2,
                       ),
                     ),
                     labelColor: AppColor.white,
